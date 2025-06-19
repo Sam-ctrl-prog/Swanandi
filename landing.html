@@ -1506,42 +1506,11 @@
 
    
   
-<script>
 
-function playVideo(card) {
-   const video = card.querySelector('.reel-video');
-   const allCards = document.querySelectorAll('.reel-card');
-   
-   // Pause all other videos
-   allCards.forEach(otherCard => {
-       if (otherCard !== card) {
-           const otherVideo = otherCard.querySelector('.reel-video');
-           otherVideo.pause();
-           otherCard.classList.remove('playing');
-       }
-   });
-   // Toggle current video
-   if (video.paused) {
-       video.play();
-       card.classList.add('playing');
-   } else {
-       video.pause();
-       card.classList.remove('playing');
-   }
-}
 
-// Pause video when it ends
-document.addEventListener('DOMContentLoaded', function() {
-   const videos = document.querySelectorAll('.reel-video');
-   videos.forEach(video => {
-       video.addEventListener('ended', function() {
-           this.closest('.reel-card').classList.remove('playing');
-       });
-   });
-});
-function openInstagramReel(url) {
-   window.open(url, '_blank');
-}
+
+
+
    <!-- Recognition Section -->
   <section class="recognition" id="recognition">
     <div class="container">
@@ -1713,6 +1682,40 @@ function openInstagramReel(url) {
         });
       });
     });
+  function playVideo(card) {
+   const video = card.querySelector('.reel-video');
+   const allCards = document.querySelectorAll('.reel-card');
+   
+   // Pause all other videos
+   allCards.forEach(otherCard => {
+       if (otherCard !== card) {
+           const otherVideo = otherCard.querySelector('.reel-video');
+           otherVideo.pause();
+           otherCard.classList.remove('playing');
+       }
+   });
+   // Toggle current video
+   if (video.paused) {
+       video.play();
+       card.classList.add('playing');
+   } else {
+       video.pause();
+       card.classList.remove('playing');
+   }
+}
+
+// Pause video when it ends
+document.addEventListener('DOMContentLoaded', function() {
+   const videos = document.querySelectorAll('.reel-video');
+   videos.forEach(video => {
+       video.addEventListener('ended', function() {
+           this.closest('.reel-card').classList.remove('playing');
+       });
+   });
+});
+function openInstagramReel(url) {
+   window.open(url, '_blank');
+}
   </script>
 </body>
 </html>
