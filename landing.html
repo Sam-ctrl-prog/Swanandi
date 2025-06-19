@@ -1362,25 +1362,179 @@
    <div class="container">
        <h2 class="reels-heading fade-in">Content & Insights</h2>
        <div class="reels-grid fade-in">
-           <div class="reel-card" onclick="openInstagramReel('https://www.instagram.com/reel/DLDdgNkhKlO/')">
-               <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=300&h=533&fit=crop" alt="AI Development Tips" class="reel-thumbnail">
+           <div class="reel-card" onclick="playVideo(this)">
+               <video class="reel-video" preload="metadata" muted>
+                   <source src="your-video-1.mp4" type="video/mp4">
+                   Your browser does not support the video tag.
+               </video>
                <div class="play-icon"></div>
                <div class="reel-overlay">
-                   <div class="reel-title">career-upgrade session</div>
+                   <div class="reel-title">AI Development Tips</div>
                    <div class="reel-stats">
-                       <span>2.0K views</span>
-                       <span>100K likes</span>
+                       <span>50K views</span>
+                       <span>2.1K likes</span>
                    </div>
                </div>
            </div>
-          
+           <div class="reel-card" onclick="playVideo(this)">
+               <video class="reel-video" preload="metadata" muted>
+                   <source src="your-video-2.mp4" type="video/mp4">
+                   Your browser does not support the video tag.
+               </video>
+               <div class="play-icon"></div>
+               <div class="reel-overlay">
+                   <div class="reel-title">Hackathon Journey</div>
+                   <div class="reel-stats">
+                       <span>75K views</span>
+                       <span>3.5K likes</span>
+                   </div>
                </div>
            </div>
        </div>
    </div>
 </section>
 
-<script>
+<style>
+/* Mobile-first responsive styles */
+.reels-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 1rem;
+   padding: 0 1rem;
+}
+
+.reel-card {
+   position: relative;
+   aspect-ratio: 9/16;
+   border-radius: 12px;
+   overflow: hidden;
+   cursor: pointer;
+   transition: transform 0.3s ease;
+}
+
+.reel-video {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   border-radius: 12px;
+}
+
+.play-icon {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 50px;
+   height: 50px;
+   background: rgba(255,255,255,0.9);
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: all 0.3s ease;
+}
+
+.play-icon::after {
+   content: '';
+   width: 0;
+   height: 0;
+   border-left: 15px solid #333;
+   border-top: 10px solid transparent;
+   border-bottom: 10px solid transparent;
+   margin-left: 3px;
+}
+
+.reel-card.playing .play-icon {
+   display: none;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+   .reels-grid {
+       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+       gap: 1.5rem;
+       padding: 0 2rem;
+   }
+   
+   .play-icon {
+       width: 60px;
+       height: 60px;
+   }
+   
+   .play-icon::after {
+       border-left: 18px solid #333;
+       border-top: 12px solid transparent;
+       border-bottom: 12px solid transparent;
+   }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+   .reels-grid {
+       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+       gap: 2rem;
+       max-width: 1200px;
+       margin: 0 auto;
+   }
+   
+   .reel-card:hover {
+       transform: translateY(-5px);
+   }
+   
+   .play-icon {
+       width: 70px;
+       height: 70px;
+   }
+   
+   .play-icon::after {
+       border-left: 20px solid #333;
+       border-top: 14px solid transparent;
+       border-bottom: 14px solid transparent;
+   }
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+   .reels-grid {
+       grid-template-columns: repeat(3, 1fr);
+       max-width: 1400px;
+   }
+}
+</style>
+
+
+function playVideo(card) {
+   const video = card.querySelector('.reel-video');
+   const allCards = document.querySelectorAll('.reel-card');
+   
+   // Pause all other videos
+   allCards.forEach(otherCard => {
+       if (otherCard !== card) {
+           const otherVideo = otherCard.querySelector('.reel-video');
+           otherVideo.pause();
+           otherCard.classList.remove('playing');
+       }
+   });
+   
+   // Toggle current video
+   if (video.paused) {
+       video.play();
+       card.classList.add('playing');
+   } else {
+       video.pause();
+       card.classList.remove('playing');
+   }
+}
+
+// Pause video when it ends
+document.addEventListener('DOMContentLoaded', function() {
+   const videos = document.querySelectorAll('.reel-video');
+   videos.forEach(video => {
+       video.addEventListener('ended', function() {
+           this.closest('.reel-card').classList.remove('playing');
+       });
+   });
+});
 function openInstagramReel(url) {
    window.open(url, '_blank');
 }
