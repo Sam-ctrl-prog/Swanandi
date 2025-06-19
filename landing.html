@@ -1503,6 +1503,11 @@
 
 
 
+
+   
+  
+</script>
+
 function playVideo(card) {
    const video = card.querySelector('.reel-video');
    const allCards = document.querySelectorAll('.reel-card');
@@ -1515,7 +1520,6 @@ function playVideo(card) {
            otherCard.classList.remove('playing');
        }
    });
-   
    // Toggle current video
    if (video.paused) {
        video.play();
@@ -1538,9 +1542,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function openInstagramReel(url) {
    window.open(url, '_blank');
 }
-</script>
-
-
    <!-- Recognition Section -->
   <section class="recognition" id="recognition">
     <div class="container">
